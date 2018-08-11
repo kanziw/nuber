@@ -1,4 +1,4 @@
-import { SayHelloQueryArgs, SayHelloResponse } from "../../../types/graph"
+import { SayHelloQueryArgs, SayHelloResponse } from '../../../types/graph'
 
 const resolvers = {
   Query: {
