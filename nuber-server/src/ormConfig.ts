@@ -9,7 +9,7 @@ const connectionOptions: ConnectionOptions = {
   host: process.env.DB_ENDPOINT || 'localhost',
   port: 5432,
   username: process.env.DB_USERNAME || 'kanziw',
-  password: process.env.DB_PASSWORD || '',
+  password: process.env.DB_PASSWORD || 'example',
 }
 
 export default connectionOptions
