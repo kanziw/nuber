@@ -1,7 +1,7 @@
 {
   "extends": ["tslint:recommended", "tslint-config-prettier"],
   "linterOptions": {
-      "exclude": ["config/**/*.js", "node_modules/**/*."]
+    "exclude": ["config/**/*.js", "node_modules/**/*."]
   },
   "rules": {
     "no-console": false,
@@ -9,7 +9,8 @@
     "object-literal-sort-keys": false,
     "ordered-imports": true,
     "interface-name": false,
-    "strict-null-checks": false
+    "strict-null-checks": false,
+    "semicolon": [true, "never"]
   },
   "rulesDirectory": []
 }
