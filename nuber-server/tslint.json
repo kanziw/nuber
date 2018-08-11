@@ -10,7 +10,8 @@
     "ordered-imports": true,
     "interface-name": false,
     "strict-null-checks": false,
-    "semicolon": [true, "never"]
+    "semicolon": [true, "never"],
+    "trailing-comma": [true, { "multiline": "always", "singleline": "never" }]
   },
   "rulesDirectory": []
 }
