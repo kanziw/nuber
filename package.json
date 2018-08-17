@@ -1,0 +1,22 @@
+{
+  "name": "nuber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanziw/nuber.git"
+  },
+  "author": "kanziw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kanziw/nuber/issues"
+  },
+  "homepage": "https://github.com/kanziw/nuber#readme",
+  "devDependencies": {
+    "create-react-app": "^1.5.2"
+  }
+}
