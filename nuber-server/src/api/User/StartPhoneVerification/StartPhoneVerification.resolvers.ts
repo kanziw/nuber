@@ -4,7 +4,7 @@ import {
   StartPhoneVerificationResponse,
 } from '../../../types/graph'
 import { Resolvers } from '../../../types/resolvers'
-import { sendVerificationSMS } from '../../../utils/sendSMS'
+// import { sendVerificationSMS } from '../../../utils/sendSMS'
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -24,7 +24,9 @@ const resolvers: Resolvers = {
           payload: phoneNumber,
           target: 'PHONE',
         }).save()
-        await sendVerificationSMS(newVerification.payload, newVerification.key)
+        console.log('>>', newVerification.key)
+        // await sendVerificationSMS(newVerification.payload, newVerification.key)
+        wait(10)
         return {
           ok: true,
           error: null,
@@ -37,6 +39,14 @@ const resolvers: Resolvers = {
       }
     },
   },
+}
+
+function wait(ms) {
+  const start = Date.now()
+  let now = start
+  while (now - start < ms) {
+    now = Date.now()
+  }
 }
 
 export default resolvers
