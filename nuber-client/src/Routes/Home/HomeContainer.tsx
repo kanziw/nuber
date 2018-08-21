@@ -15,9 +15,9 @@ interface IState {
   toLng: number
   lat: number
   lng: number
-  distance?: string
+  distance: string
   duration?: string
-  price?: number
+  price?: string
 }
 
 interface IProps extends RouteComponentProps<any> {
@@ -33,9 +33,12 @@ class HomeContainer extends React.Component<IProps, IState> {
   public toMarker: google.maps.Marker
   public directions: google.maps.DirectionsRenderer
   public state = {
+    distance: '',
+    duration: undefined,
     isMenuOpen: false,
     lat: 0,
     lng: 0,
+    price: undefined,
     toAddress: '',
     toLat: 0,
     toLng: 0,
@@ -54,7 +57,7 @@ class HomeContainer extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const { isMenuOpen, toAddress } = this.state
+    const { isMenuOpen, toAddress, price } = this.state
     return (
       <ProfileQuery query={USER_PROFILE}>
         {({ loading }) => (
@@ -65,6 +68,7 @@ class HomeContainer extends React.Component<IProps, IState> {
             mapRef={this.mapRef}
             toAddress={toAddress}
             onInputChange={this.onInputChange}
+            price={price}
             onAddressSubmit={this.onAddressSubmit}
           />
         )}
@@ -204,23 +208,39 @@ class HomeContainer extends React.Component<IProps, IState> {
       origin: from,
       travelMode: google.maps.TravelMode.DRIVING,
     }
-    directionsService.route(directionsOptions, (result, status) => {
-      if (status === google.maps.DirectionsStatus.OK) {
-        const { routes } = result
-        const {
-          distance: { text: distance },
-          duration: { text: duration },
-        } = routes[0].legs[0]
-        this.setState({
+    directionsService.route(directionsOptions, this.handleRouteRequest)
+  }
+  public handleRouteRequest = (
+    result: google.maps.DirectionsResult,
+    status: google.maps.DirectionsStatus,
+  ) => {
+    if (status === google.maps.DirectionsStatus.OK) {
+      const { routes } = result
+      const {
+        distance: { text: distance },
+        duration: { text: duration },
+      } = routes[0].legs[0]
+      this.directions.setDirections(result)
+      this.directions.setMap(this.map)
+      this.setState(
+        {
           distance,
           duration,
-        })
-        this.directions.setDirections(result)
-        this.directions.setMap(this.map)
-      } else {
-        toast.error('There is no route there, you have to ')
-      }
-    })
+        },
+        this.setPrice,
+      )
+    } else {
+      toast.error('There is no route there, you have to ')
+    }
+  }
+
+  public setPrice = () => {
+    const { distance } = this.state
+    if (distance) {
+      this.setState({
+        price: Number(parseFloat(distance.replace(',', '')) * 3).toFixed(2),
+      })
+    }
   }
 }
 
